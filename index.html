@@ -1,0 +1,639 @@
+<!--
+ * @ Author: Deartis Soluções
+ * @ Create Time: 2024-10-14 20:32:13
+ * @ Modified by: jaldesigner
+ * @ Modified time: 2024-10-15 18:09:00
+ * @ Description: Quiz para produto de beleza customizado
+ -->
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deartis Quiz - Estado do Cabelo</title>
+    <style>
+        /* CSS do Quiz */
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .quiz-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px 30px;
+            background-color: #fff;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-question h2 {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .quiz-answer {
+            margin: 10px 0;
+            text-align: left;
+        }
+
+        .quiz-answer input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+            vertical-align: middle;
+        }
+
+        .quiz-answer label {
+            font-size: 1em;
+            cursor: pointer;
+            color: #555;
+        }
+
+        #next-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #0073aa;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #next-button:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+
+        .quiz-results h2 {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .quiz-results ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .quiz-results li {
+            background-color: #f9f9f9;
+            margin: 10px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 70%;
+        }
+
+        .product-info img {
+            width: 100px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .add-to-cart {
+            padding: 8px 12px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .add-to-cart:hover {
+            background-color: #218838;
+        }
+
+        .add-to-cart:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+
+        .finalize-purchase {
+            padding: 10px 20px;
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .reset-quiz {
+            padding: 10px 20px;
+            background-color: #727272;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .finalize-purchase:hover {
+            background-color: #e65c00;
+        }
+
+        .reset-quiz:hover {
+            background-color: #492929;
+        }
+
+        .btnBox {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .confirmation-message {
+            margin-top: 10px;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        /* Modal de Confirmação */
+        .modal {
+            display: none;
+            /* Oculto por padrão */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Fundo semi-transparente */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            /* 15% do topo e centralizado */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .modal-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .modal-buttons button {
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-buttons .yes-button {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .modal-buttons .yes-button:hover {
+            background-color: #c82333;
+        }
+
+        .modal-buttons .no-button {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .modal-buttons .no-button:hover {
+            background-color: #218838;
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .quiz-container {
+                margin: 20px;
+                padding: 15px 20px;
+            }
+
+            .quiz-question h2,
+            .quiz-results h2 {
+                font-size: 1.2em;
+            }
+
+            #next-button {
+                width: 100%;
+            }
+
+            .quiz-results li {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .add-to-cart,
+            .finalize-purchase,
+            .reset-quiz {
+                width: 100%;
+                text-align: center;
+            }
+
+            .btnBox {
+                display: flexbox;
+                flex-direction: column;
+                justify-content: stretch;
+            }
+
+            .finalize-purchase {
+                order: 1;
+            }
+
+            .reset-quiz {
+                order: 2;
+            }
+
+            .product-info {
+                width: 100%;
+            }
+
+            /* Alterando a ordem dos botões */
+            #finalize-button {
+                order: 1;
+                width: 100%;
+            }
+
+            #restart-button {
+                order: 2;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="quiz-container" id="deartis-quiz">
+        <!-- Quiz será inserido aqui via JavaScript -->
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content">
+
+
+            <!-- ----------------------------------------------------------------------- -->
+            <!--                        !EDITAR TÍTULO DO MODAL                          -->
+            <!-- ----------------------------------------------------------------------- -->
+            <p>Você não adicionou nenhum produto ao carrinho. Deseja realmente sair sem nenhum produto?</p>
+            <!-- ----------------------------------------------------------------------- -->
+            <!-- ----------------------------------------------------------------------- -->
+
+
+            <div class="modal-buttons">
+                <button class="yes-button" id="confirm-yes">Sim</button>
+                <button class="no-button" id="confirm-no">Não</button>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+
+
+            /*********************************************************************
+             *?  CONFIGURAÇÃO DOS LINKS NECESSÁRIOS PARA O FUNCIONAMENTO DO QUIZ *
+             *********************************************************************/
+
+            const linkCart = "https://deartis-quiz.jumpseller.com/cart";       //Link para página de carrinho
+            const linkAddCart = "https://deartis-quiz.jumpseller.com/cart/add/";  //Link para adicionar ao carrinho
+            const linkHome = "https://deartis-quiz.jumpseller.com/";           //Link para página inicial
+
+
+
+
+            /*********************************************
+             *? AQUI VAI AS OPÇÕES DO BLOCO DE PERGUNTAS *
+            **********************************************/
+
+            const opcoes1 = [
+                itemOpcoes("Seco", "Hidratante Profundo", "27180073", "https://images.jumpseller.com/store/deartis-quiz/27180073/config/products/images/beauty_and_healthcare/demo_skin/skin1.png"),
+                itemOpcoes("Oleoso", "Shampoo Equilibrante", "12346", "https://sualoja.jumpseller.com/media/products/12346.jpg"),
+                itemOpcoes("Normal", "Condicionador Suave", "12347", "https://sualoja.jumpseller.com/media/products/12346.jpg"),
+            ];
+
+            const opcoes2 = [
+                itemOpcoes("Frizz", "Hidratante Profundo", "27180073", "https://images.jumpseller.com/store/deartis-quiz/27180073/config/products/images/beauty_and_healthcare/demo_skin/skin1.png"),
+                itemOpcoes("Queda", "Fortalecedor Capilar", "12347", "https://sualoja.jumpseller.com/media/products/12346.jpg"),
+                itemOpcoes("Volume", "Spray de Volume", "12347", "https://sualoja.jumpseller.com/media/products/12346.jpg"),
+            ];
+
+            const opcoes3 = [
+                itemOpcoes("Diariamente", "Hidratante Profundo", "27180073", "https://images.jumpseller.com/store/deartis-quiz/27180073/config/products/images/beauty_and_healthcare/demo_skin/skin1.png"),
+                itemOpcoes("Semanalmente", "Shampoo Revitalizante", "12347", "https://sualoja.jumpseller.com/media/products/12346.jpg"),
+                itemOpcoes("Raramente", "Máscara de Nutrição Profunda", "12347", "https://sualoja.jumpseller.com/media/products/12346.jpg"),
+
+            ];
+
+
+            const quizContainer = document.getElementById('deartis-quiz');
+            const questions = [
+
+
+
+                /*********************************************
+                *?          ADICIONE AS QUESTÕES AQUI        *
+                **********************************************/
+
+                getQuestion("Qual o estado do seu cabelo?", opcoes1),
+                getQuestion("Qual a sua principal preocupação com o cabelo?", opcoes2),
+                getQuestion("Com que frequência você lava seu cabelo?", opcoes3),
+
+                //======================================== Fim  ==========================================//
+
+
+
+            ];
+
+
+            function itemOpcoes(textOption, productOption, idOption, imagemOption) {
+                const option = {
+                    text: textOption,
+                    product: productOption,
+                    id: idOption,
+                    imagem: imagemOption
+                };
+
+                return option;
+            }
+
+            function getQuestion(tituloDaQuestao, opcoesDaQuestao) {
+                const question =
+                {
+
+                    question: tituloDaQuestao,
+                    answers: opcoesDaQuestao
+                };
+
+                return question;
+            }
+
+
+
+            let currentQuestionIndex = 0;
+            let selectedProducts = [];
+            let cartItemsCount = 0; // Variável para rastrear itens adicionados ao carrinho
+
+            function showQuestion() {
+                const questionData = questions[currentQuestionIndex];
+                let answersHtml = '';
+                questionData.answers.forEach((answer, index) => {
+                    answersHtml += `
+                        <div class="quiz-answer">
+                            <input type="radio" id="answer-${index}" name="quiz-answer" value="${index}">
+                            <label for="answer-${index}">${answer.text}</label>
+                        </div>
+                    `;
+                });
+
+                quizContainer.innerHTML = `
+                    <div class="quiz-question">
+                        <h2>${questionData.question}</h2>
+                        <form id="quiz-form">
+                            ${answersHtml}
+                            <button type="submit" id="next-button" disabled>Próxima</button>
+                        </form>
+                    </div>
+                `;
+
+                const quizForm = document.getElementById('quiz-form');
+                const nextButton = document.getElementById('next-button');
+
+                // Habilitar o botão "Próxima" quando uma resposta for selecionada
+                quizForm.addEventListener('change', function () {
+                    nextButton.disabled = false;
+                });
+
+                // Lidar com o envio do formulário
+                quizForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const selectedOption = document.querySelector('input[name="quiz-answer"]:checked');
+                    if (selectedOption) {
+                        const selectedIndex = parseInt(selectedOption.value);
+                        const selectedAnswer = questionData.answers[selectedIndex];
+                        selectedProducts.push({
+                            product: selectedAnswer.product,
+                            id: selectedAnswer.id,
+                            imagem: selectedAnswer.imagem
+                        });
+                        currentQuestionIndex++;
+
+                        if (currentQuestionIndex < questions.length) {
+                            showQuestion();
+                        } else {
+                            showResults();
+                        }
+                    }
+                });
+            }
+
+            function showResults() {
+                // Remover produtos duplicados com base no nome do produto
+                const uniqueProductsMap = {};
+                selectedProducts.forEach(item => {
+                    uniqueProductsMap[item.product] = {
+                        id: item.id,
+                        imagem: item.imagem
+                    };
+                });
+                const uniqueProducts = Object.keys(uniqueProductsMap).map(product => ({
+                    product: product,
+                    id: uniqueProductsMap[product].id,
+                    imagem: uniqueProductsMap[product].imagem
+                }));
+
+                let resultsHtml = `
+                    <div class="quiz-results">
+                        <h2>Produtos recomendados:</h2>
+                        <ul>
+                            ${uniqueProducts.map(productItem => `
+                                <li>
+                                    <div class="product-info">
+                                        <img src="${productItem.imagem}" alt="${productItem.product}">
+                                        <span>${productItem.product}</span>
+                                    </div>
+                                    <button class="add-to-cart" data-product-id="${productItem.id}">Adicionar ao carrinho</button>
+                                </li>
+                            `).join('')}
+                        </ul>
+                        <div class="btnBox">
+                            <button id="restart-button" class="reset-quiz">Refazer Quiz</button>
+                            <button id="finalize-button" class="finalize-purchase">Finalizar Quiz</button>
+                        </div>
+                        <div id="confirmation-message" class="confirmation-message" style="display: none;">
+                            Produto adicionado ao carrinho!
+                        </div>
+                    </div>
+                `;
+
+                quizContainer.innerHTML = resultsHtml;
+
+                // Adicionar eventos aos botões "Adicionar ao carrinho"
+                const addToCartButtons = document.querySelectorAll('.add-to-cart');
+                addToCartButtons.forEach(button => {
+                    button.addEventListener('click', function () {
+                        const productId = this.getAttribute('data-product-id');
+                        addToCart(productId, this);
+                    });
+                });
+
+                // Adicionar evento ao botão "Refazer Quiz"
+                const restartButton = document.getElementById('restart-button');
+                restartButton.addEventListener('click', function () {
+                    currentQuestionIndex = 0;
+                    selectedProducts = [];
+                    cartItemsCount = 0; // Resetar a contagem ao refazer o quiz
+                    showQuestion();
+                });
+
+                // Adicionar evento ao botão "Finalizar Compra"
+                const finalizeButton = document.getElementById('finalize-button');
+                finalizeButton.addEventListener('click', function () {
+                    if (cartItemsCount > 0) {
+                        // Se houver itens no carrinho, redirecionar para a página do carrinho
+                        window.location.href = linkCart;
+                    } else {
+                        // Caso contrário, exibir o modal de confirmação
+                        showModal();
+                    }
+                });
+            }
+
+            function addToCart(productId, buttonElement) {
+                // URL para adicionar ao carrinho no Jumpseller
+                const addToCartUrl = linkAddCart + productId;
+
+                // Realizar a requisição AJAX para adicionar o produto ao carrinho
+                fetch(addToCartUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-Requested-With': 'XMLHttpRequest' // Indica que a requisição é AJAX
+                    },
+                    credentials: 'include' // Inclui cookies para manter a sessão
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            return true;
+                        } else {
+                            throw new Error('Erro ao adicionar o produto ao carrinho.');
+                        }
+                    })
+                    .then(data => {
+                        // Atualizar a interface do usuário
+                        showConfirmation(buttonElement);
+                        updateCartCount(data); // Função opcional para atualizar o contador do carrinho
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                        alert('Não foi possível adicionar o produto ao carrinho. Por favor, tente novamente.');
+                    });
+            }
+
+            function showConfirmation(buttonElement) {
+                // Mostrar uma mensagem de confirmação
+                const confirmationMessage = document.getElementById('confirmation-message');
+                confirmationMessage.style.display = 'block';
+                confirmationMessage.textContent = 'Produto adicionado ao carrinho!';
+
+                // Ocultar a mensagem após 3 segundos
+                setTimeout(() => {
+                    confirmationMessage.style.display = 'none';
+                }, 3000);
+
+                // Opcional: Desabilitar o botão para evitar múltiplos cliques
+                buttonElement.disabled = true;
+                buttonElement.textContent = 'Adicionado';
+
+                // Incrementar a contagem de itens no carrinho
+                cartItemsCount++;
+            }
+
+            function updateCartCount(data) {
+                const cartCountElement = document.getElementById('cart-count');
+                if (cartCountElement && data.cart_count) {
+                    cartCountElement.textContent = data.cart_count;
+                }
+            }
+
+            // Funções para o Modal de Confirmação
+            function showModal() {
+                const modal = document.getElementById('confirmation-modal');
+                modal.style.display = 'block';
+            }
+
+            function hideModal() {
+                const modal = document.getElementById('confirmation-modal');
+                modal.style.display = 'none';
+            }
+
+            // Adicionar eventos aos botões do modal
+            const confirmYesButton = document.getElementById('confirm-yes');
+            const confirmNoButton = document.getElementById('confirm-no');
+
+            confirmYesButton.addEventListener('click', function () {
+                // Redirecionar para a página inicial caso o usuário clique em "Sim"
+                window.location.href = linkHome;
+            });
+
+            confirmNoButton.addEventListener('click', function () {
+                // Fechar o modal e permanecer na página
+                hideModal();
+            });
+
+            // Fechar o modal ao clicar fora do conteúdo do modal
+            window.addEventListener('click', function (event) {
+                const modal = document.getElementById('confirmation-modal');
+                if (event.target == modal) {
+                    hideModal();
+                }
+            });
+
+            // Iniciar o quiz
+            showQuestion();
+        });
+    </script>
+
+</body>
+
+</html>
