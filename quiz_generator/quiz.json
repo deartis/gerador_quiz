@@ -1,0 +1,50 @@
+{
+    "Quiz": [
+        {
+            "Pergunta": "Primeira pergunta",
+            "Dados": [
+                {
+                    "Resposta": "opção 1",
+                    "Produto Indicado": "produto 1",
+                    "ID do produto": "12345678",
+                    "URL da Imagem": "url da imagem"
+                },
+                {
+                    "Resposta": "opção 2",
+                    "Produto Indicado": "produto 2",
+                    "ID do produto": "654321",
+                    "URL da Imagem": "url da imagem"
+                },
+                {
+                    "Resposta": "Opçao 3",
+                    "Produto Indicado": "produto 3",
+                    "ID do produto": "098765",
+                    "URL da Imagem": "url da imagem 3"
+                }
+            ]
+        },
+        {
+            "Pergunta": "Segunda pergunta",
+            "Dados": [
+                {
+                    "Resposta": "opção 1",
+                    "Produto Indicado": "produto 1",
+                    "ID do produto": "12345678",
+                    "URL da Imagem": "url da imagem"
+                },
+                {
+                    "Resposta": "opção 2",
+                    "Produto Indicado": "produto 2",
+                    "ID do produto": "654321",
+                    "URL da Imagem": "url da imagem"
+                },
+                {
+                    "Resposta": "Opçao 3",
+                    "Produto Indicado": "produto 3",
+                    "ID do produto": "098765",
+                    "URL da Imagem": "url da imagem 3"
+                }
+            ]
+        }
+    ]
+}

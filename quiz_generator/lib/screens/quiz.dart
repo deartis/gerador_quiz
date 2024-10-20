@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
-import 'package:json_annotation/json_annotation.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -11,16 +10,54 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  
-  //final List<Map<String, dynamic>> _perguntas = [];
-  final List<Map<String, dynamic>> _resposta = [];
+  final List<Map<String, dynamic>> _listQuiz = [];
+  final List<Map<String, dynamic>> _dadosPergunta = [];
+
   final _perguntaController = TextEditingController();
   final respostaController = TextEditingController();
   final produtoIndicadoController = TextEditingController();
   final idProdutoController = TextEditingController();
   final urlImagemController = TextEditingController();
 
-  Map<String, dynamic> _dadosDaPergunta() {
+/*
+
+{
+  'Quiz': [
+    {
+      'Pergunta': _perguntaController.text, 
+      'Dados': [
+        {
+          'Pergunta': _perguntaController.text, 
+          'Dados': [
+            {
+              'Resposta': respostaController.text,
+              'Produto Indicado': produtoIndicadoController.text,
+              'ID do produto': idProdutoController.text,
+              'URL da Imagem': urlImagemController.text,
+            }
+          ]
+        },
+      ]
+    },
+  ]
+}
+*/
+  Map<String, dynamic> _quizJson() {
+    var quiz = {
+      'Quiz': _listQuiz,
+    };
+    return quiz;
+  }
+
+  Map<String, dynamic> _dadosPerguntaJso() {
+    var dados = {
+      'Pergunta': _perguntaController.text,
+      'Dados': _dadosPergunta,
+    };
+    return dados;
+  }
+
+  Map<String, dynamic> _dadosRespostaJson() {
     var dados = {
       'Resposta': respostaController.text,
       'Produto Indicado': produtoIndicadoController.text,
@@ -28,6 +65,20 @@ class _QuizState extends State<Quiz> {
       'URL da Imagem': urlImagemController.text,
     };
     return dados;
+  }
+
+  void _getFileJson() async {
+    String jsonString = jsonEncode(_quizJson());
+    File file = File('assets/quiz.json');
+    await file.writeAsString(jsonString);
+  }
+
+  void _resetCampos() {
+    _perguntaController.clear();
+    respostaController.clear();
+    produtoIndicadoController.clear();
+    idProdutoController.clear();
+    urlImagemController.clear();
   }
 
   void _openaddOptionModal() {
@@ -93,7 +144,7 @@ class _QuizState extends State<Quiz> {
               ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    _resposta.add(_dadosDaPergunta());
+                    _dadosPergunta.add(_dadosRespostaJson());
                   });
                   respostaController.clear();
                   produtoIndicadoController.clear();
@@ -151,13 +202,25 @@ class _QuizState extends State<Quiz> {
                   height:
                       200, // Definir uma altura fixa ou usar Expanded para expandir
                   child: ListView.builder(
-                    itemCount: _resposta.length,
+                    itemCount: 1, //_resposta.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(_resposta[index]['Resposta']),
+                      return const ListTile(
+                        title: Text(""),
                       );
                     },
                   ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: ElevatedButton(
+                  onPressed: () {
+                    _listQuiz.add(_dadosPerguntaJso());
+                    _getFileJson();
+                    _resetCampos();
+                    _dadosPergunta.clear();
+                  },
+                  child: const Text('Gerar script Quiz'),
                 ),
               ),
             ],
