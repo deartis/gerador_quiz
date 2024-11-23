@@ -332,58 +332,37 @@
 
 
             /*********************************************************************
-             *?  CONFIGURAÇÃO DOS LINKS NECESSÁRIOS PARA O FUNCIONAMENTO DO QUIZ *
-             *********************************************************************/
-
-            const linkCart = "https://deartis-quiz.jumpseller.com/cart";       //Link para página de carrinho
-            const linkAddCart = "https://deartis-quiz.jumpseller.com/cart/add/";  //Link para adicionar ao carrinho
-            const linkHome = "https://deartis-quiz.jumpseller.com/";           //Link para página inicial
-
-
-
-
-            /*********************************************
-             *? AQUI VAI AS OPÇÕES DO BLOCO DE PERGUNTAS *
-            **********************************************/
-
-            const opcoes1 = [
-                itemOpcoes("Seco", "Hidratante Profundo", "27180073", "https://images.jumpseller.com/store/deartis-quiz/27180073/config/products/images/beauty_and_healthcare/demo_skin/skin1.png"),
-                itemOpcoes("Oleoso", "Shampoo Equilibrante", "12346", "https://sualoja.jumpseller.com/media/products/12346.jpg"),
-                itemOpcoes("Normal", "Condicionador Suave", "12347", "https://sualoja.jumpseller.com/media/products/12346.jpg"),
-            ];
-
-            const opcoes2 = [
-                itemOpcoes("Frizz", "Hidratante Profundo", "27180073", "https://images.jumpseller.com/store/deartis-quiz/27180073/config/products/images/beauty_and_healthcare/demo_skin/skin1.png"),
-                itemOpcoes("Queda", "Fortalecedor Capilar", "12347", "https://sualoja.jumpseller.com/media/products/12346.jpg"),
-                itemOpcoes("Volume", "Spray de Volume", "12347", "https://sualoja.jumpseller.com/media/products/12346.jpg"),
-            ];
-
-            const opcoes3 = [
-                itemOpcoes("Diariamente", "Hidratante Profundo", "27180073", "https://images.jumpseller.com/store/deartis-quiz/27180073/config/products/images/beauty_and_healthcare/demo_skin/skin1.png"),
-                itemOpcoes("Semanalmente", "Shampoo Revitalizante", "12347", "https://sualoja.jumpseller.com/media/products/12346.jpg"),
-                itemOpcoes("Raramente", "Máscara de Nutrição Profunda", "12347", "https://sualoja.jumpseller.com/media/products/12346.jpg"),
-
-            ];
-
-
-            const quizContainer = document.getElementById('deartis-quiz');
-            const questions = [
-
-
-
-                /*********************************************
-                *?          ADICIONE AS QUESTÕES AQUI        *
-                **********************************************/
-
-                getQuestion("Qual o estado do seu cabelo?", opcoes1),
-                getQuestion("Qual a sua principal preocupação com o cabelo?", opcoes2),
-                getQuestion("Com que frequência você lava seu cabelo?", opcoes3),
-
-                //======================================== Fim  ==========================================//
-
-
-
-            ];
+          *?  CONFIGURAÇÃO DOS LINKS NECESSÁRIOS PARA O FUNCIONAMENTO DO QUIZ *
+          *********************************************************************/
+         const linkCart = "https://www.minhota.com/cart/";       //Link para página de carrinho
+         const linkAddCart = "https://www.minhota.com/cart/add/";  //Link para adicionar ao carrinho
+         const linkHome = "https://www.minhota.com";           //Link para página inicial
+         /*********************************************
+          *? AQUI VAI AS OPÇÕES DO BLOCO DE PERGUNTAS *
+         **********************************************/
+         const opcoes1 = [
+             itemOpcoes("Oleoso", "Shampoo Antioleosidade", "27079367", "https://images.jumpseller.com/store/minhota/27079367/Shampoo_Antioleosidade_-_Minhota.png?1732202634"),
+             itemOpcoes("Normal", "Shampoo Hidratante", "27079369", "https://images.jumpseller.com/store/minhota/27079369/Shampoo_Hidratante_-_Minhota.png?1732202691"),
+             itemOpcoes("Caspa ou Descamação", "Shampoo Purificante", "27201188", "https://images.jumpseller.com/store/minhota/27201188/Shampoo_Purificante_-_Minhota.png?1732202753"),
+         ];
+         const opcoes2 = [
+             itemOpcoes("Secos e Desidratados", "Máscara Nutritiva", "27079368", "https://images.jumpseller.com/store/minhota/27079368/Ma_scara_Nutritiva_-_Minhota.png?1732202668"),
+             itemOpcoes("Com Processos Químicos", "Máscara Reconstrutora", "27079370", "https://images.jumpseller.com/store/minhota/27079370/Ma_scara_Reconstrutora_-_Minhota.png?1732202709"),
+                      ];
+         const opcoes3 = [
+             itemOpcoes("Fontes Calor", "Spray Protetor Térmico", "27201200", "https://images.jumpseller.com/store/minhota/27201200/Spray_Protetor_-_Minhota.png?1732202803"),
+             itemOpcoes("Seco ao natural", "Óleo Capilar", "27201178", "https://images.jumpseller.com/store/minhota/27201178/O_leo_Capilar_-_Minhota.png?1732202731"),
+         ];
+         const quizContainer = document.getElementById('deartis-quiz');
+         const questions = [
+             /*********************************************
+             *?          ADICIONE AS QUESTÕES AQUI        *
+             **********************************************/
+             getQuestion("Como está o seu couro cabeludo no momento?", opcoes1),
+             getQuestion("Como estão os meios e pontas?", opcoes2),
+             getQuestion("Como finaliza o seu cabelo?", opcoes3),
+             //======================================== Fim  ==========================================//
+         ];
 
 
             function itemOpcoes(textOption, productOption, idOption, imagemOption) {
