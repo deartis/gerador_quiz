@@ -334,35 +334,81 @@
             /*********************************************************************
           *?  CONFIGURAÇÃO DOS LINKS NECESSÁRIOS PARA O FUNCIONAMENTO DO QUIZ *
           *********************************************************************/
-         const linkCart = "https://www.minhota.com/cart/";       //Link para página de carrinho
-         const linkAddCart = "https://www.minhota.com/cart/add/";  //Link para adicionar ao carrinho
-         const linkHome = "https://www.minhota.com";           //Link para página inicial
-         /*********************************************
-          *? AQUI VAI AS OPÇÕES DO BLOCO DE PERGUNTAS *
-         **********************************************/
-         const opcoes1 = [
-             itemOpcoes("Oleoso", "Shampoo Antioleosidade", "27079367", "https://images.jumpseller.com/store/minhota/27079367/Shampoo_Antioleosidade_-_Minhota.png?1732202634"),
-             itemOpcoes("Normal", "Shampoo Hidratante", "27079369", "https://images.jumpseller.com/store/minhota/27079369/Shampoo_Hidratante_-_Minhota.png?1732202691"),
-             itemOpcoes("Caspa ou Descamação", "Shampoo Purificante", "27201188", "https://images.jumpseller.com/store/minhota/27201188/Shampoo_Purificante_-_Minhota.png?1732202753"),
-         ];
-         const opcoes2 = [
-             itemOpcoes("Secos e Desidratados", "Máscara Nutritiva", "27079368", "https://images.jumpseller.com/store/minhota/27079368/Ma_scara_Nutritiva_-_Minhota.png?1732202668"),
-             itemOpcoes("Com Processos Químicos", "Máscara Reconstrutora", "27079370", "https://images.jumpseller.com/store/minhota/27079370/Ma_scara_Reconstrutora_-_Minhota.png?1732202709"),
-                      ];
-         const opcoes3 = [
-             itemOpcoes("Fontes Calor", "Spray Protetor Térmico", "27201200", "https://images.jumpseller.com/store/minhota/27201200/Spray_Protetor_-_Minhota.png?1732202803"),
-             itemOpcoes("Seco ao natural", "Óleo Capilar", "27201178", "https://images.jumpseller.com/store/minhota/27201178/O_leo_Capilar_-_Minhota.png?1732202731"),
-         ];
-         const quizContainer = document.getElementById('deartis-quiz');
-         const questions = [
-             /*********************************************
-             *?          ADICIONE AS QUESTÕES AQUI        *
-             **********************************************/
-             getQuestion("Como está o seu couro cabeludo no momento?", opcoes1),
-             getQuestion("Como estão os meios e pontas?", opcoes2),
-             getQuestion("Como finaliza o seu cabelo?", opcoes3),
-             //======================================== Fim  ==========================================//
-         ];
+            const linkCart = "https://www.minhota.com/cart/";       //Link para página de carrinho
+            const linkAddCart = "https://www.minhota.com/cart/add/";  //Link para adicionar ao carrinho
+            const linkHome = "https://www.minhota.com";           //Link para página inicial
+            /*********************************************
+             *? AQUI VAI AS OPÇÕES DO BLOCO DE PERGUNTAS *
+            **********************************************/
+            const opcoes1 = [
+
+                itemOpcoes(
+                    "Oleoso",
+                    "Shampoo Antioleosidade",
+                    "27079367",
+                    //https://images.jumpseller.com/store/minhota/27079367/shampoo_antioleosidade_minhota.png?1732547420 
+                    "https://images.jumpseller.com/store/minhota/27079367/shampoo_antioleosidade_minhota.png?1732547420"),
+
+                itemOpcoes(
+                    "Normal",
+                    "Shampoo Hidratante",
+                    "27079369",
+                    //https://cdnx.jumpseller.com/minhota/image/57580260/thumb/1500/1500?1732547606
+                    "https://cdnx.jumpseller.com/minhota/image/57580249/thumb/1500/1500?1732547596"),
+
+                itemOpcoes(
+                    "Caspa ou Descamação",
+                    "Shampoo Purificante",
+                    "27201188",
+                    //https://cdnx.jumpseller.com/minhota/image/57580260/thumb/1500/1500?1732547606
+                    "https://cdnx.jumpseller.com/minhota/image/57580260/thumb/1500/1500?1732547606"),
+            ];
+
+            const opcoes2 = [
+
+                itemOpcoes(
+                    "Secos e Desidratados",
+                    "Máscara Nutritiva",
+                    "27079368",
+                    //https://images.jumpseller.com/store/minhota/27079368/mascara_nutritiva_minhota.png?1732547537 
+                    "https://images.jumpseller.com/store/minhota/27079368/mascara_nutritiva_minhota.png?1732547537"),
+
+                itemOpcoes(
+                    "Com Processos Químicos",
+                    "Máscara Reconstrutora",
+                    "27079370",
+                    //https://images.jumpseller.com/store/minhota/27079370/mascara_recontrutora_minhota.png?1732547610 
+                    "https://images.jumpseller.com/store/minhota/27079370/mascara_recontrutora_minhota.png?1732547610"),
+            ];
+
+            const opcoes3 = [
+
+                itemOpcoes(
+                    "Fontes Calor",
+                    "Spray Protetor Térmico",
+                    "27201200",
+                    //https://images.jumpseller.com/store/minhota/27201200/spray_protetor_minhota.png?1732547618 
+                    "https://images.jumpseller.com/store/minhota/27201200/spray_protetor_minhota.png?1732547618"),
+
+                itemOpcoes(
+                    "Seco ao natural",
+                    "Óleo Capilar",
+                    "27201178",
+                    //https://images.jumpseller.com/store/minhota/27201178/oleo_capilar_minhota.png?1732547612 
+                    "https://images.jumpseller.com/store/minhota/27201178/oleo_capilar_minhota.png?1732547612"),
+
+            ];
+
+            const quizContainer = document.getElementById('deartis-quiz');
+            const questions = [
+                /*********************************************
+                *?          ADICIONE AS QUESTÕES AQUI        *
+                **********************************************/
+                getQuestion("Como está o teu couro cabeludo no momento?", opcoes1),
+                getQuestion("Como estão os meios e pontas?", opcoes2),
+                getQuestion("Como finalizas o teu cabelo?", opcoes3),
+                //======================================== Fim  ==========================================//
+            ];
 
 
             function itemOpcoes(textOption, productOption, idOption, imagemOption) {
