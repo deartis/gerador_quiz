@@ -37,7 +37,7 @@
         .quiz-question h2 {
             margin-bottom: 20px;
             font-size: 1.5em;
-            color: #333;
+            color: #261C15;
         }
 
         .quiz-answer {
@@ -54,14 +54,14 @@
         .quiz-answer label {
             font-size: 1em;
             cursor: pointer;
-            color: #555;
+            color: #4f3a2c;
         }
 
         #next-button {
             margin-top: 20px;
             padding: 10px 20px;
             font-size: 1em;
-            background-color: #0073aa;
+            background-color: #261C15;
             color: #fff;
             border: none;
             border-radius: 4px;
@@ -69,15 +69,21 @@
             transition: background-color 0.3s ease;
         }
 
+        #next-button:hover {
+            background-color: #4f3a2c;
+            
+        }
+
         #next-button:disabled {
             background-color: #aaa;
             cursor: not-allowed;
-        }
+        } 
+        
 
         .quiz-results h2 {
             margin-bottom: 20px;
             font-size: 1.5em;
-            color: #333;
+            color: #4f3a2c;
         }
 
         .quiz-results ul {
@@ -86,12 +92,12 @@
         }
 
         .quiz-results li {
-            background-color: #f9f9f9;
+            background-color: #fff;
             margin: 10px 0;
             padding: 15px;
             border: 1px solid #ddd;
             border-radius: 4px;
-            color: #555;
+            color: #4f3a2c;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -114,7 +120,7 @@
 
         .add-to-cart {
             padding: 8px 12px;
-            background-color: #28a745;
+            background-color: #261C15;
             color: #fff;
             border: none;
             border-radius: 4px;
@@ -125,7 +131,7 @@
         }
 
         .add-to-cart:hover {
-            background-color: #218838;
+            background-color: #4f3a2c;
         }
 
         .add-to-cart:disabled {
@@ -329,8 +335,6 @@
 
         document.addEventListener('DOMContentLoaded', function () {
 
-
-
             /*********************************************************************
           *?  CONFIGURAÇÃO DOS LINKS NECESSÁRIOS PARA O FUNCIONAMENTO DO QUIZ *
           *********************************************************************/
@@ -340,64 +344,106 @@
             /*********************************************
              *? AQUI VAI AS OPÇÕES DO BLOCO DE PERGUNTAS *
             **********************************************/
-            const opcoes1 = [
+            // Modificando a estrutura para suportar múltiplos produtos por opção
+            // Função auxiliar para criar produto
+            function productInfo(name, id, image) {
+                return {
+                    product: name,
+                    id: id,
+                    imagem: image
+                };
+            }
 
+            // Função para criar opções com múltiplos produtos
+            function itemOpcoes(textOption, products) {
+                return {
+                    text: textOption,
+                    products: Array.isArray(products) ? products : [products] // Garante que sempre seja um array
+                };
+            }
+
+            const opcoes1 = [
                 itemOpcoes(
                     "Oleoso",
-                    "Shampoo Antioleosidade",
-                    "27079367",
-                    //https://images.jumpseller.com/store/minhota/27079367/shampoo_antioleosidade_minhota.png?1732547420 
-                    "https://images.jumpseller.com/store/minhota/27079367/shampoo_antioleosidade_minhota.png?1732547420"),
-
+                    [
+                        productInfo(
+                            "Shampoo Antioleosidade",
+                            "27079367",
+                            "https://images.jumpseller.com/store/minhota/27079367/shampoo_antioleosidade_minhota.png?1732547420"
+                        ),
+                    ]
+                ),
                 itemOpcoes(
                     "Normal",
-                    "Shampoo Hidratante",
-                    "27079369",
-                    //https://cdnx.jumpseller.com/minhota/image/57580260/thumb/1500/1500?1732547606
-                    "https://cdnx.jumpseller.com/minhota/image/57580249/thumb/1500/1500?1732547596"),
-
+                    [
+                        productInfo(
+                            "Shampoo Hidratante",
+                            "27079369",
+                            "https://cdnx.jumpseller.com/minhota/image/57580249/thumb/1500/1500?1732547596"
+                        )
+                    ]
+                ),
                 itemOpcoes(
                     "Caspa ou Descamação",
-                    "Shampoo Purificante",
-                    "27201188",
-                    //https://cdnx.jumpseller.com/minhota/image/57580260/thumb/1500/1500?1732547606
-                    "https://cdnx.jumpseller.com/minhota/image/57580260/thumb/1500/1500?1732547606"),
+                    [
+                        productInfo(
+                            "Shampoo Purificante",
+                            "27201188",
+                            "https://cdnx.jumpseller.com/minhota/image/57580260/thumb/1500/1500?1732547606"
+                        )
+                    ]
+                ),
             ];
-
             const opcoes2 = [
-
                 itemOpcoes(
                     "Secos e Desidratados",
-                    "Máscara Nutritiva",
-                    "27079368",
-                    //https://images.jumpseller.com/store/minhota/27079368/mascara_nutritiva_minhota.png?1732547537 
-                    "https://images.jumpseller.com/store/minhota/27079368/mascara_nutritiva_minhota.png?1732547537"),
-
+                    [
+                        productInfo(
+                            "Máscara Nutritiva",
+                            "27079368",
+                            "https://images.jumpseller.com/store/minhota/27079368/mascara_nutritiva_minhota.png?1732547537"
+                        ),
+                    ]
+                ),
                 itemOpcoes(
                     "Com Processos Químicos",
-                    "Máscara Reconstrutora",
-                    "27079370",
-                    //https://images.jumpseller.com/store/minhota/27079370/mascara_recontrutora_minhota.png?1732547610 
-                    "https://images.jumpseller.com/store/minhota/27079370/mascara_recontrutora_minhota.png?1732547610"),
+                    [
+                        productInfo(
+                            "Máscara Reconstrutora",
+                            "27079370",
+                            "https://images.jumpseller.com/store/minhota/27079370/mascara_recontrutora_minhota.png?1732547610"
+                        )
+                    ]
+                ),
             ];
-
             const opcoes3 = [
-
                 itemOpcoes(
                     "Fontes Calor",
-                    "Spray Protetor Térmico",
-                    "27201200",
-                    //https://images.jumpseller.com/store/minhota/27201200/spray_protetor_minhota.png?1732547618 
-                    "https://images.jumpseller.com/store/minhota/27201200/spray_protetor_minhota.png?1732547618"),
-
+                    [
+                        productInfo(
+                            "Spray Protetor Térmico",
+                            "27201200",
+                            "https://images.jumpseller.com/store/minhota/27201200/spray_protetor_minhota.png?1732547618"
+                        )
+                    ]
+                ),
                 itemOpcoes(
                     "Seco ao natural",
-                    "Óleo Capilar",
-                    "27201178",
-                    //https://images.jumpseller.com/store/minhota/27201178/oleo_capilar_minhota.png?1732547612 
-                    "https://images.jumpseller.com/store/minhota/27201178/oleo_capilar_minhota.png?1732547612"),
-
+                    [
+                        productInfo(
+                            "Óleo Capilar",
+                            "27201178",
+                            "https://images.jumpseller.com/store/minhota/27201178/oleo_capilar_minhota.png?1732547612"
+                        ),
+                        productInfo(
+                            "Spray Protetor Térmico",
+                            "27201200",
+                            "https://images.jumpseller.com/store/minhota/27201200/spray_protetor_minhota.png?1732547618"
+                        )
+                    ]
+                ),
             ];
+
 
             const quizContainer = document.getElementById('deartis-quiz');
             const questions = [
@@ -411,76 +457,65 @@
             ];
 
 
-            function itemOpcoes(textOption, productOption, idOption, imagemOption) {
+            /* function itemOpcoes(textOption, productOption, idOption, imagemOption) {
                 const option = {
                     text: textOption,
                     product: productOption,
                     id: idOption,
                     imagem: imagemOption
                 };
-
+ 
                 return option;
-            }
+            } */
 
             function getQuestion(tituloDaQuestao, opcoesDaQuestao) {
-                const question =
-                {
-
+                return {
                     question: tituloDaQuestao,
                     answers: opcoesDaQuestao
                 };
-
-                return question;
             }
-
-
 
             let currentQuestionIndex = 0;
             let selectedProducts = [];
-            let cartItemsCount = 0; // Variável para rastrear itens adicionados ao carrinho
+            let cartItemsCount = 0;
 
             function showQuestion() {
                 const questionData = questions[currentQuestionIndex];
                 let answersHtml = '';
                 questionData.answers.forEach((answer, index) => {
                     answersHtml += `
-                        <div class="quiz-answer">
-                            <input type="radio" id="answer-${index}" name="quiz-answer" value="${index}">
-                            <label for="answer-${index}">${answer.text}</label>
-                        </div>
-                    `;
+                <div class="quiz-answer">
+                    <input type="radio" id="answer-${index}" name="quiz-answer" value="${index}">
+                    <label for="answer-${index}">${answer.text}</label>
+                </div>
+            `;
                 });
 
                 quizContainer.innerHTML = `
-                    <div class="quiz-question">
-                        <h2>${questionData.question}</h2>
-                        <form id="quiz-form">
-                            ${answersHtml}
-                            <button type="submit" id="next-button" disabled>Próxima</button>
-                        </form>
-                    </div>
-                `;
+            <div class="quiz-question">
+                <h2>${questionData.question}</h2>
+                <form id="quiz-form">
+                    ${answersHtml}
+                    <button type="submit" id="next-button" disabled>Próxima</button>
+                </form>
+            </div>
+        `;
 
                 const quizForm = document.getElementById('quiz-form');
                 const nextButton = document.getElementById('next-button');
 
-                // Habilitar o botão "Próxima" quando uma resposta for selecionada
                 quizForm.addEventListener('change', function () {
                     nextButton.disabled = false;
                 });
 
-                // Lidar com o envio do formulário
                 quizForm.addEventListener('submit', function (e) {
                     e.preventDefault();
                     const selectedOption = document.querySelector('input[name="quiz-answer"]:checked');
                     if (selectedOption) {
                         const selectedIndex = parseInt(selectedOption.value);
                         const selectedAnswer = questionData.answers[selectedIndex];
-                        selectedProducts.push({
-                            product: selectedAnswer.product,
-                            id: selectedAnswer.id,
-                            imagem: selectedAnswer.imagem
-                        });
+                        // Agora armazenamos todos os produtos da resposta selecionada
+                        selectedProducts.push(...selectedAnswer.products);
                         currentQuestionIndex++;
 
                         if (currentQuestionIndex < questions.length) {
@@ -493,47 +528,44 @@
             }
 
             function showResults() {
-                // Remover produtos duplicados com base no nome do produto
-                const uniqueProductsMap = {};
-                selectedProducts.forEach(item => {
-                    uniqueProductsMap[item.product] = {
-                        id: item.id,
-                        imagem: item.imagem
-                    };
+                // Criar um mapa de produtos únicos usando o ID como chave
+                const uniqueProductsMap = new Map();
+
+                selectedProducts.forEach(product => {
+                    if (!uniqueProductsMap.has(product.id)) {
+                        uniqueProductsMap.set(product.id, product);
+                    }
                 });
-                const uniqueProducts = Object.keys(uniqueProductsMap).map(product => ({
-                    product: product,
-                    id: uniqueProductsMap[product].id,
-                    imagem: uniqueProductsMap[product].imagem
-                }));
+
+                const uniqueProducts = Array.from(uniqueProductsMap.values());
 
                 let resultsHtml = `
-                    <div class="quiz-results">
-                        <h2>Produtos recomendados:</h2>
-                        <ul>
-                            ${uniqueProducts.map(productItem => `
-                                <li>
-                                    <div class="product-info">
-                                        <img src="${productItem.imagem}" alt="${productItem.product}">
-                                        <span>${productItem.product}</span>
-                                    </div>
-                                    <button class="add-to-cart" data-product-id="${productItem.id}">Adicionar ao carrinho</button>
-                                </li>
-                            `).join('')}
-                        </ul>
-                        <div class="btnBox">
-                            <button id="restart-button" class="reset-quiz">Refazer Quiz</button>
-                            <button id="finalize-button" class="finalize-purchase">Finalizar Quiz</button>
-                        </div>
-                        <div id="confirmation-message" class="confirmation-message" style="display: none;">
-                            Produto adicionado ao carrinho!
-                        </div>
-                    </div>
-                `;
+            <div class="quiz-results">
+                <h2>Produtos recomendados:</h2>
+                <ul>
+                    ${uniqueProducts.map(productItem => `
+                        <li>
+                            <div class="product-info">
+                                <img src="${productItem.imagem}" alt="${productItem.product}">
+                                <span>${productItem.product}</span>
+                            </div>
+                            <button class="add-to-cart" data-product-id="${productItem.id}">Adicionar ao carrinho</button>
+                        </li>
+                    `).join('')}
+                </ul>
+                <div class="btnBox">
+                    <button id="restart-button" class="reset-quiz">Refazer Quiz</button>
+                    <button id="finalize-button" class="finalize-purchase">Finalizar Quiz</button>
+                </div>
+                <div id="confirmation-message" class="confirmation-message" style="display: none;">
+                    Produto adicionado ao carrinho!
+                </div>
+            </div>
+        `;
 
                 quizContainer.innerHTML = resultsHtml;
 
-                // Adicionar eventos aos botões "Adicionar ao carrinho"
+                // Adicionar eventos aos botões
                 const addToCartButtons = document.querySelectorAll('.add-to-cart');
                 addToCartButtons.forEach(button => {
                     button.addEventListener('click', function () {
@@ -542,23 +574,19 @@
                     });
                 });
 
-                // Adicionar evento ao botão "Refazer Quiz"
                 const restartButton = document.getElementById('restart-button');
                 restartButton.addEventListener('click', function () {
                     currentQuestionIndex = 0;
                     selectedProducts = [];
-                    cartItemsCount = 0; // Resetar a contagem ao refazer o quiz
+                    cartItemsCount = 0;
                     showQuestion();
                 });
 
-                // Adicionar evento ao botão "Finalizar Compra"
                 const finalizeButton = document.getElementById('finalize-button');
                 finalizeButton.addEventListener('click', function () {
                     if (cartItemsCount > 0) {
-                        // Se houver itens no carrinho, redirecionar para a página do carrinho
                         window.location.href = linkCart;
                     } else {
-                        // Caso contrário, exibir o modal de confirmação
                         showModal();
                     }
                 });
